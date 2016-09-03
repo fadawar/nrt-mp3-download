@@ -29,14 +29,15 @@ def download_mp3(mp3_url):
             for chunk in r.iter_content(chunk_size=1024):
                 if chunk:  # filter out keep-alive new chunks
                     f.write(chunk)
-        show_msg(os.path.basename(local_filename), final_url)
+        show_msg('MP3 downloaded', 'File {} downloaded from {}'.format(os.path.basename(local_filename), final_url))
 
 
-def show_msg(file, url_):
-    subprocess.Popen(['notify-send', 'MP3 downloaded', 'File {} downloaded from {}'.format(file, url_)])
+def show_msg(main_msg, sub_msg):
+    subprocess.Popen(['notify-send', main_msg, sub_msg])
 
 
 def main():
+    show_msg('Start NRT download', '')
     urls = find_mp3_urls()
     for url in urls:
         download_mp3(url)
